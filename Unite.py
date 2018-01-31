@@ -1,3 +1,5 @@
+from Cases import *
+
 class Unite:
     def __init__(self):
         self.number = 0
@@ -13,6 +15,7 @@ class Unite:
 
 
         :return:
+
         """
 
         return
@@ -38,11 +41,28 @@ class Unite:
         """
         return
 
-    def Moves(self):
+
+    def Moves(self, listeCaseOccupee, typeCase, caseArrivee) :
+        "On prend les coordonnées de la case sur laquelle on clique pour savoir si on peut se déplacer sur cette case."
+        "Inutile de savoir toutes les cases possible seule la case sur laquelle le joueur veut se déplacer est importante"
+        "Il faut vérifier si la case d'arrivée est adjactentes à au moins case ocupée par le joueur"
         """Je conquéris
-        si rien sur plateau:
-            à côté de mer
-        sinon
-            à côté d'une case occupée
-        :return:"""
+                si rien sur plateau:
+                    à côté de mer
+                sinon
+                    à côté d'une case occupée
+                :return:"""
+
+        #if cliqueGauche == True
+        try :
+            if typeCase == "mer" :
+                raise TypeError("C'est une case mer")
+            else :
+                for element in listeCaseOccupee:
+                    if caseArrivee in listeCaseOccupee :
+                        return False
+                    if caseArrivee in Case.getAdjacent(element) :
+                        return True
+        except TypeError :
+            print("Ce n'est pas une case mer")
 
