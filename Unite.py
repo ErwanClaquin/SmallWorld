@@ -54,6 +54,7 @@ class Unite:
                 :return:"""
 
         # if cliqueGauche == True
+        """TODO : REFAIRE SELON LES CLASSES CASES"""
         try:
             if typeCase == "mer":
                 raise TypeError("C'est une case mer")
@@ -61,7 +62,7 @@ class Unite:
                 for element in listeCaseOccupee:
                     if caseArrivee in listeCaseOccupee:
                         return False
-                    if caseArrivee in Case.getAdjacent(element):
+                    if caseArrivee in Case.adjacent(element):
                         return True
         except TypeError:
             print("Ce n'est pas une case mer")

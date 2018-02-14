@@ -5,7 +5,17 @@ class Case:
         self.type = type
         self.playerOnCase = playerOnCase
         self.moutain = moutain
+        self.uniteOnCase = 2 + int(self.freePepole)
 
+    def setPlayerOnCase(self, player):
+        self.playerOnCase = player
+
+    def setUniteOnCase(self, nombreUnite):
+        self.uniteOnCase = nombreUnite
+
+    def caseAddBeenConquiert(self, player):
+        self.playerOnCase = player
+        self.uniteOnCase = player.nombreUnite
 
 caseMagic = "Magic"
 caseNormal = "Normal"
@@ -57,3 +67,4 @@ case42 = Case([40, 41, 43, 45], False, caseNormal, False, None)
 case43 = Case([39, 40, 42, 44, 45], True, caseShovel, False, None)
 case44 = Case([13, 14, 43, 45], False, caseNormal, False, None)
 case45 = Case([14, 15, 42, 43, 44], False, caseMagic, True, None)
+
