@@ -1,10 +1,11 @@
-import Dice
+from Dice import *
 
 
 class Joueur:
     def __init__(self):
         self.name = "Default"
         self.army = None
+        self.toReplace = 0
 
     def setName(self, name):
         self.name = name
@@ -17,7 +18,7 @@ class Joueur:
         while case.uniteOnCase > self.army and howManyToConquier < self.army:
             howManyToConquier += 1
         if howManyToConquier == self.army:
-            varDice = Dice.diceRandom.randomDice()
+            varDice = diceRandom.randomDice()
             if self.army + varDice < case.uniteOnCase:
                 print("Fail, pas assez")
                 return

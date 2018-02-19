@@ -5,6 +5,7 @@ class Unite:
     def __init__(self):
         self.number = 0
         self.race = "Aucune"
+        self.isFall = False
 
     def Conquier(self):
         """
@@ -62,7 +63,14 @@ class Unite:
                 for element in listeCaseOccupee:
                     if caseArrivee in listeCaseOccupee:
                         return False
-                    if caseArrivee in Case.adjacent(element):
+                    if caseArrivee in element.adjacent:
                         return True
         except TypeError:
             print("Ce n'est pas une case mer")
+
+    def setFall(self, army):
+        for element in army:
+            for case in listeCase:
+                if element in case:
+                    case.setUniteOnCase(1)
+                    self.isFall = True
