@@ -21,16 +21,18 @@ class Map:
     def addTour(self):
         self.tour += 1
 
-Fond = Map()
-partieEnCours = True
-while partieEnCours:
-    Fond.createMap()
-    pygame.display.flip()
-    for event in pygame.event.get():
-        """On fait la liste de tous les évenements qui peuvent se produirent"""
-        if event.type == QUIT:
-            """Si l'utilisateur clic sur la croix en haut à droite, le programme se ferme"""
-            partieEnCours = False
-        if event.type == MOUSEBUTTONUP and event.button == 1:
-            partieEnCours = False
-pygame.quit()
+    def runMap(self):
+        partieEnCours = True
+        while partieEnCours:
+            self.createMap()
+            pygame.display.flip()
+            for event in pygame.event.get():
+                """On fait la liste de tous les évenements qui peuvent se produirent"""
+                if event.type == QUIT:
+                    """Si l'utilisateur clic sur la croix en haut à droite, le programme se ferme"""
+                    partieEnCours = False
+                if event.type == MOUSEBUTTONUP and event.button == 1:
+                    partieEnCours = False
+        pygame.quit()
+
+

@@ -1,4 +1,5 @@
 from Players import *
+from Map import *
 
 
 class Init:
@@ -6,20 +7,37 @@ class Init:
         self.listeJoueur = []
 
     def InitJoueur(self):
-        NumberPlayer = int(input("Combien de joueur êtes vous ? : "))
-        compteJoueur = 0
-        while compteJoueur < NumberPlayer:
-            joueur = Joueur()
-            print("Enterz un nom")
-            joueur.setName(input())
-            self.listeJoueur.append(joueur)
-            compteJoueur += 1
-        for j in range(len(self.listeJoueur)):
-            print(self.listeJoueur[j].name)
+        NumberPlayer = input("Combien de joueur êtes vous ? : ")
+        verif = self.CheckNbrJoueur(NumberPlayer)
+        if verif:
+            NumberPlayer = int(NumberPlayer)
+            compteJoueur = 0
+            while compteJoueur < NumberPlayer:
+                self.CreatePlayer()
+                compteJoueur += 1
+            self.LauchGame()
+        elif not verif:
+            self.InitJoueur()
+
+    def CreatePlayer(self):
+        joueur = Joueur()
+        print("Enterz un nom")
+        joueur.setName(input())
+        self.listeJoueur.append(joueur)
 
     def CheckNbrJoueur(self, number):
-        if number is not int:
+        try:
+            int(number)
+        except ValueError:
             print("Vous n'avez pas rentrer de nombre !")
-            return Init.InitJoueur()
+            return False
         else:
-            return
+            return True
+
+    def LauchGame(self):
+        Fond = Map()
+        Fond.createMap()
+        Fond.runMap()
+
+
+Init = Init()
