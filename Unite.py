@@ -73,4 +73,5 @@ class Unite:
             for case in listeCase:
                 if element in case:
                     case.setUniteOnCase(1)
-                    self.isFall = True
+        self.isFall = True
+

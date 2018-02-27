@@ -6,12 +6,8 @@ class Joueur:
         self.name = "Default"
         self.army = None
         self.toReplace = 0
+        self.victoryPoint = 0
 
-    def setName(self, name):
-        self.name = name
-
-    def addArmy(self, army):
-        self.army = army
 
     def conquier(self, case):
         howManyToConquier = 0

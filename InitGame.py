@@ -21,8 +21,8 @@ class Init:
 
     def CreatePlayer(self):
         joueur = Joueur()
-        print("Enterz un nom")
-        joueur.setName(input())
+        print("Entrez un nom : ")
+        joueur.name = input()
         self.listeJoueur.append(joueur)
 
     def CheckNbrJoueur(self, number):
