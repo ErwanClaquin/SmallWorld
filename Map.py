@@ -4,10 +4,9 @@ from pygame import *
 
 class Map:
     def __init__(self):
-        self.ecran = pygame.display.set_mode((0, 0), RESIZABLE)
-        self.ecran_rect = self.ecran.get_rect()
+        self.ecran = pygame.display.set_mode((996, 996))
         self.backGround = pygame.image.load("small_world1.jpg").convert()
-        self.backGround = pygame.transform.smoothscale(self.backGround, (self.ecran_rect.right, self.ecran_rect.right - self.ecran_rect.right // 10))
+        #self.backGround = pygame.transform.smoothscale(self.backGround, (self.ecran_rect.right, self.ecran_rect.right - self.ecran_rect.right // 10))
         self.tour = 0
     def createMap(self):
         """if nbrJoueur < 3:
