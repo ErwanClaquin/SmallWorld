@@ -1,6 +1,6 @@
 import pygame
 from pygame import *
-
+from Research import *
 
 class Map:
     def __init__(self):
@@ -31,7 +31,7 @@ class Map:
                     """Si l'utilisateur clic sur la croix en haut à droite, le programme se ferme"""
                     partieEnCours = False
                 if event.type == MOUSEBUTTONUP and event.button == 1:
-                    partieEnCours = False
+                    searchWhichCaseOn(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
         pygame.quit()
 
 
