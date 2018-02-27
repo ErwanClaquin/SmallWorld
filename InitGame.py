@@ -7,7 +7,8 @@ class Init:
         self.listeJoueur = []
 
     def InitJoueur(self):
-        NumberPlayer = input("Combien de joueur êtes vous ? : ")
+        #NumberPlayer = input("Combien de joueur êtes vous ? : ")
+        NumberPlayer = 0
         verif = self.CheckNbrJoueur(NumberPlayer)
         if verif:
             NumberPlayer = int(NumberPlayer)

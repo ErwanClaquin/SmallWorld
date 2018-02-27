@@ -71,8 +71,9 @@ class Map:
 
 
     def clicGauche(self):
-        case2.typeOfUniteOnCase = nameAmazon
-
+        for cases in listeCase:
+            cases.typeOfUniteOnCase = nameAmazon
+            print(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
     def runMap(self):
         partieEnCours = True
