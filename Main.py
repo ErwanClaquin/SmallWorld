@@ -1,3 +1,10 @@
 from InitGame import *
+from Game import *
+from Map import *
 
-Init.InitJoueur()
+InitTheGame = Init()
+InitTheGame.InitJoueur()
+MapOfTheGame = Map()
+
+TheGame = Games(InitTheGame, MapOfTheGame)
+TheGame.run()

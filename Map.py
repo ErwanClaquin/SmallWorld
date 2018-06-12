@@ -1,15 +1,14 @@
 import pygame
-from pygame import *
-from Research import *
-from Cases import *
 from DataName import *
+
+
 
 class Map:
     def __init__(self):
         self.ecran = pygame.display.set_mode((996, 996))
         self.backGround = pygame.image.load("small_world1.jpg").convert()
         self.tour = 0
-        #Image of Unites
+        # Image of Unites
         self.Amazon = pygame.image.load("Amazon.png").convert()
         self.Dwarf = pygame.image.load("Dwarf.png").convert()
         self.Elf = pygame.image.load("Elf.png").convert()
@@ -24,22 +23,19 @@ class Map:
         self.Troll = pygame.image.load("Troll.png").convert()
         self.Wizzard = pygame.image.load("Wizzard.png").convert()
         self.Zombie = pygame.image.load("Zombie.png").convert()
+        self.listeCase = []
 
-    def createMap(self):
-        """if nbrJoueur < 3:
+    def setListeCase(self, listeCase):
+        self.listeCase = listeCase
 
-            else:
-            backGround = " "
-        """
-
+    def displayMap(self):
         self.ecran.blit(self.backGround, (0, 0))
 
     def addTour(self):
         self.tour += 1
 
-
     def displayUnite(self):
-        for case in listeCase:
+        for case in self.listeCase:
             if case.typeOfUniteOnCase == nameAmazon:
                 self.ecran.blit(self.Amazon, (case.coord[0], case.coord[1]))
             elif case.typeOfUniteOnCase == nameDwarf:
@@ -71,22 +67,8 @@ class Map:
 
 
     def clicGauche(self):
-        for cases in listeCase:
-            cases.typeOfUniteOnCase = nameAmazon
-            print(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
-
-    def runMap(self):
-        partieEnCours = True
-        while partieEnCours:
-            self.createMap()
-            self.displayUnite()
-            pygame.display.flip()
-            for event in pygame.event.get():
-                """On fait la liste de tous les évenements qui peuvent se produirent"""
-                if event.type == QUIT:
-                    """Si l'utilisateur clic sur la croix en haut à droite, le programme se ferme"""
-                    partieEnCours = False
-                if event.type == MOUSEBUTTONUP and event.button == 1:
-                    self.clicGauche()
-                    pygame.display.flip()
-        pygame.quit()
+        for cases in self.listeCase:
+            print(cases.coord)
+            if cases.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
+                cases.typeOfUniteOnCase = nameAmazon
+        print(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
