@@ -8,7 +8,7 @@ class Case:
         self.type = type
         self.playerOnCase = playerOnCase
         self.moutain = moutain
-        self.uniteOnCase = 2 + int(self.freePepole)
+        self.NumberuniteOnCase = 2 + int(self.freePepole)
         self.coord = [(x, y), (x + 75, y + 75)]
         self.typeOfUniteOnCase = typeOfUniteOnCase
 

@@ -22,17 +22,6 @@ class Unite:
 
         return
 
-    def Attak(self, case, numberUnite):
-        """
-        On a une case avec un attribut qu'on appelle case.NumberUniteToConquier
-         on vérifie
-         si numberUnite > case.NumberUniteToConquier
-            on enlève de nombre courant le nombre d'unité
-         sinon
-            on réappelle la fonction, avec un dé de (0,0,1,1,2,3) pour tenter de reconquérir la case.
-        :return:
-        """
-        return
 
     def Stack(self):
         """

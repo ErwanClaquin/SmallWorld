@@ -7,7 +7,7 @@ class Map:
     def __init__(self):
         self.ecran = pygame.display.set_mode((996, 996))
         self.backGround = pygame.image.load("small_world1.jpg").convert()
-        self.tour = 0
+
         # Image of Unites
         self.Amazon = pygame.image.load("Amazon.png").convert()
         self.Dwarf = pygame.image.load("Dwarf.png").convert()
@@ -30,9 +30,6 @@ class Map:
 
     def displayMap(self):
         self.ecran.blit(self.backGround, (0, 0))
-
-    def addTour(self):
-        self.tour += 1
 
     def displayUnite(self):
         for case in self.listeCase:
@@ -65,10 +62,3 @@ class Map:
             elif case.typeOfUniteOnCase == nameZombie:
                 self.ecran.blit(self.Zombie, (case.coord[0], case.coord[1]))
 
-
-    def clicGauche(self):
-        for cases in self.listeCase:
-            print(cases.coord)
-            if cases.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
-                cases.typeOfUniteOnCase = nameAmazon
-        print(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
