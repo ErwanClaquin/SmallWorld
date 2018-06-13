@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a00a19d5-f78c-4694-9e55-44adac0f9ce3" name="Default" comment="Change Game and remove free variable">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Tinaël" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cases.py" afterPath="$PROJECT_DIR$/Cases.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game.py" afterPath="$PROJECT_DIR$/Game.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Map.py" afterPath="$PROJECT_DIR$/Map.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Players.py" afterPath="$PROJECT_DIR$/Players.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Unite.py" afterPath="$PROJECT_DIR$/Unite.py" />
-    </list>
+    <list default="true" id="a00a19d5-f78c-4694-9e55-44adac0f9ce3" name="Default" comment="" />
     <ignored path="SmallWorld.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -386,7 +378,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528813158628</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="New content">
+      <created>1528910816489</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1528910816489</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -425,7 +424,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Change Game and remove free variable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Game and remove free variable" />
+    <MESSAGE value="New content" />
+    <option name="LAST_COMMIT_MESSAGE" value="New content" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
