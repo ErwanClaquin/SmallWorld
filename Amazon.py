@@ -1,11 +1,11 @@
 from Unite import *
 from DataName import *
 
-class Dwarf(Unite):
+class Amazon(Unite):
     def __init__(self):
         super().__init__()
         self.number = 6
-        self.race = nameDwarf
+        self.race = nameAmazon
 
     def Power(self):
         #Todo : attribuer un pouvoir de classe

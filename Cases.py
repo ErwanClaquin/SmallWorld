@@ -15,5 +15,8 @@ class Case:
     def onCase(self, x, y):
         return (self.coord[0][0] < x < self.coord[1][0]) and (self.coord[0][1] < y < self.coord[1][1])
 
-
+    def caseAddBeenConquiert(self, player, number):
+        self.playerOnCase = player
+        self.typeOfUniteOnCase = player.army.race
+        self.NumberuniteOnCase = number
 

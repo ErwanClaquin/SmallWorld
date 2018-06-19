@@ -6,7 +6,10 @@ from DataName import *
 class Map:
     def __init__(self):
         self.ecran = pygame.display.set_mode((996, 996))
-        self.backGround = pygame.image.load("small_world1.jpg").convert()
+        self.shop = pygame.image.load("Shop.jpg").convert()
+        self.battelfield = pygame.image.load("small_world1.jpg").convert()
+        self.backGround = self.battelfield
+
 
         # Image of Unites
         self.Amazon = pygame.image.load("Amazon.png").convert()
@@ -24,12 +27,135 @@ class Map:
         self.Wizzard = pygame.image.load("Wizzard.png").convert()
         self.Zombie = pygame.image.load("Zombie.png").convert()
         self.listeCase = []
+        self.shop = pygame.image.load("Shop.jpg").convert()
+        self.UnitToBuy = []
 
     def setListeCase(self, listeCase):
         self.listeCase = listeCase
 
+    def setUnitToBuy(self, listUniteToBuy):
+        self.UnitToBuy = listUniteToBuy
+
     def displayMap(self):
         self.ecran.blit(self.backGround, (0, 0))
+
+    def displayShop(self):
+        if self.UnitToBuy[0].race == nameAmazon:
+            self.ecran.blit(self.Amazon, (0, 0))
+        elif self.UnitToBuy[0].race == nameDwarf:
+            self.ecran.blit(self.Dwarf, (0, 0))
+        elif self.UnitToBuy[0].race == nameElf:
+            self.ecran.blit(self.Elf, (0, 0))
+        elif self.UnitToBuy[0].race == nameGiant:
+            self.ecran.blit(self.Giant, (0, 0))
+        elif self.UnitToBuy[0].race == nameHobbit:
+            self.ecran.blit(self.Hobbit, (0, 0))
+        elif self.UnitToBuy[0].race == nameHumans:
+            self.ecran.blit(self.Humans, (0, 0))
+        elif self.UnitToBuy[0].race == nameMago:
+            self.ecran.blit(self.Mago, (0, 0))
+        elif self.UnitToBuy[0].race == nameOrc:
+            self.ecran.blit(self.Orc, (0, 0))
+        elif self.UnitToBuy[0].race == nameRats:
+            self.ecran.blit(self.Rats, (0, 0))
+        elif self.UnitToBuy[0].race == nameSkeletton:
+            self.ecran.blit(self.Skeletton, (0, 0))
+        elif self.UnitToBuy[0].race == nameTriton:
+            self.ecran.blit(self.Triton, (0, 0))
+        elif self.UnitToBuy[0].race == nameTroll:
+            self.ecran.blit(self.Troll, (0, 0))
+        elif self.UnitToBuy[0].race == nameWizzard:
+            self.ecran.blit(self.Wizzard, (0, 0))
+        elif self.UnitToBuy[0].race == nameZombie:
+            self.ecran.blit(self.Zombie, (0, 0))
+
+        if self.UnitToBuy[1].race == nameAmazon:
+            self.ecran.blit(self.Amazon, (0, 100))
+        elif self.UnitToBuy[1].race == nameDwarf:
+            self.ecran.blit(self.Dwarf, (0, 100))
+        elif self.UnitToBuy[1].race == nameElf:
+            self.ecran.blit(self.Elf, (0, 100))
+        elif self.UnitToBuy[1].race == nameGiant:
+            self.ecran.blit(self.Giant, (0, 100))
+        elif self.UnitToBuy[1].race == nameHobbit:
+            self.ecran.blit(self.Hobbit, (0, 100))
+        elif self.UnitToBuy[1].race == nameHumans:
+            self.ecran.blit(self.Humans, (0, 100))
+        elif self.UnitToBuy[1].race == nameMago:
+            self.ecran.blit(self.Mago, (0, 100))
+        elif self.UnitToBuy[1].race == nameOrc:
+            self.ecran.blit(self.Orc, (0, 100))
+        elif self.UnitToBuy[1].race == nameRats:
+            self.ecran.blit(self.Rats, (0, 100))
+        elif self.UnitToBuy[1].race == nameSkeletton:
+            self.ecran.blit(self.Skeletton, (0, 100))
+        elif self.UnitToBuy[1].race == nameTriton:
+            self.ecran.blit(self.Triton, (0, 100))
+        elif self.UnitToBuy[1].race == nameTroll:
+            self.ecran.blit(self.Troll, (0, 100))
+        elif self.UnitToBuy[1].race == nameWizzard:
+            self.ecran.blit(self.Wizzard, (0, 100))
+        elif self.UnitToBuy[1].race == nameZombie:
+            self.ecran.blit(self.Zombie, (0, 100))
+
+        if self.UnitToBuy[2].race == nameAmazon:
+            self.ecran.blit(self.Amazon, (0, 200))
+        elif self.UnitToBuy[2].race == nameDwarf:
+            self.ecran.blit(self.Dwarf, (0, 200))
+        elif self.UnitToBuy[2].race == nameElf:
+            self.ecran.blit(self.Elf, (0, 200))
+        elif self.UnitToBuy[2].race == nameGiant:
+            self.ecran.blit(self.Giant, (0, 200))
+        elif self.UnitToBuy[2].race == nameHobbit:
+            self.ecran.blit(self.Hobbit, (0, 200))
+        elif self.UnitToBuy[2].race == nameHumans:
+            self.ecran.blit(self.Humans, (0, 200))
+        elif self.UnitToBuy[2].race == nameMago:
+            self.ecran.blit(self.Mago, (0, 200))
+        elif self.UnitToBuy[2].race == nameOrc:
+            self.ecran.blit(self.Orc, (0, 200))
+        elif self.UnitToBuy[2].race == nameRats:
+            self.ecran.blit(self.Rats, (0, 200))
+        elif self.UnitToBuy[2].race == nameSkeletton:
+            self.ecran.blit(self.Skeletton, (0, 200))
+        elif self.UnitToBuy[2].race == nameTriton:
+            self.ecran.blit(self.Triton, (0, 200))
+        elif self.UnitToBuy[2].race == nameTroll:
+            self.ecran.blit(self.Troll, (0, 200))
+        elif self.UnitToBuy[2].race == nameWizzard:
+            self.ecran.blit(self.Wizzard, (0, 200))
+        elif self.UnitToBuy[2].race == nameZombie:
+            self.ecran.blit(self.Zombie, (0, 200))
+
+        if self.UnitToBuy[3].race == nameAmazon:
+            self.ecran.blit(self.Amazon, (0, 300))
+        elif self.UnitToBuy[3].race == nameDwarf:
+            self.ecran.blit(self.Dwarf, (0, 300))
+        elif self.UnitToBuy[3].race == nameElf:
+            self.ecran.blit(self.Elf, (0, 300))
+        elif self.UnitToBuy[3].race == nameGiant:
+            self.ecran.blit(self.Giant, (0, 300))
+        elif self.UnitToBuy[3].race == nameHobbit:
+            self.ecran.blit(self.Hobbit, (0, 300))
+        elif self.UnitToBuy[3].race == nameHumans:
+            self.ecran.blit(self.Humans, (0, 300))
+        elif self.UnitToBuy[3].race == nameMago:
+            self.ecran.blit(self.Mago, (0, 300))
+        elif self.UnitToBuy[3].race == nameOrc:
+            self.ecran.blit(self.Orc, (0, 300))
+        elif self.UnitToBuy[3].race == nameRats:
+            self.ecran.blit(self.Rats, (0, 300))
+        elif self.UnitToBuy[3].race == nameSkeletton:
+            self.ecran.blit(self.Skeletton, (0, 300))
+        elif self.UnitToBuy[3].race == nameTriton:
+            self.ecran.blit(self.Triton, (0, 300))
+        elif self.UnitToBuy[3].race == nameTroll:
+            self.ecran.blit(self.Troll, (0, 300))
+        elif self.UnitToBuy[3].race == nameWizzard:
+            self.ecran.blit(self.Wizzard, (0, 300))
+        elif self.UnitToBuy[3].race == nameZombie:
+            self.ecran.blit(self.Zombie, (0, 300))
+
 
     def displayUnite(self):
         for case in self.listeCase:

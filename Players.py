@@ -6,25 +6,28 @@ class Joueur:
         self.name = "Default"
         self.army = None
         self.toReplace = 0
-        self.victoryPoint = 0
+        self.victoryPoint = 5
         self.Attack = True
         self.Replace = False
         self.lastAttack = False
         self.listCaseTemp = []
 
-    def conquier(self, case, listeCase):
+    def conquier(self, case):
         howManyToConquier = 0
-        while case.uniteOnCase > self.army > howManyToConquier:
+        while case.NumberuniteOnCase > howManyToConquier <self.army.number:
             howManyToConquier += 1
-        if howManyToConquier <= self.army:
-            self.lastAttack = True
+        print(howManyToConquier)
+        if howManyToConquier < case.NumberuniteOnCase:
+            return case
+        """self.lastAttack = True
             varDice = diceRandom.randomDice()
-            if self.army + varDice < case.uniteOnCase:
+            if self.army.number + varDice < case.NumberuniteOnCase:
                 print("Fail, pas assez")
                 self.Attack = False
-                return
+                return"""
         self.army.number -= howManyToConquier
-        case.caseAddBeenConquiert(Joueur)
+        print(self.army.number)
+        case.caseAddBeenConquiert(self, howManyToConquier)
         return case
 
     def stack(self, listeCase):
