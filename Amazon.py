@@ -4,7 +4,7 @@ from DataName import *
 class Amazon(Unite):
     def __init__(self):
         super().__init__()
-        self.number = 6
+        self.number = 12
         self.race = nameAmazon
 
     def Power(self):

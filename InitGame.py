@@ -62,7 +62,7 @@ class Init:
     def createUnitToBuy(self):
         self.uniteToBuy = [Amazon(), Dwarf(), Elf(), Giant(), Hobbit(), Humans(), Mago(), Orc(), Rats(), Skeletton(),
                            Triton(), Troll(), Wizzard(), Zombie()]
-        shuffle(self.uniteToBuy)
+        #shuffle(self.uniteToBuy)
 
     def associatePower(self):
         # Todo : faire les pouvoirs spéciaux

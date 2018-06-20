@@ -18,6 +18,7 @@ class Games:
     """On considère que lorsqu'un joueur perd il est eliminé, ainsi il restera dans la liste et quand son tour viendra son tour passera automatiquement"""
 
     def changePlayer(self):
+        self.listeJoueur[0].Attack = True
         self.listeJoueur.append(self.listeJoueur[0])
         self.listeJoueur.remove(self.listeJoueur[0])
 
@@ -36,16 +37,26 @@ class Games:
                     if event.type == MOUSEBUTTONUP and event.button == self.MouseButtonUp:
                         if self.listeJoueur[0].Attack:  # Tant qu'il peut attaquer
                             self.clicGaucheAttaque()
-                        elif self.listeJoueur[0].Replace:  # Si il peut changer ses unitées
+                        elif self.listeJoueur[0].Replace:
                             self.cliqueGaucheReplace()
-                        else:
-                            self.changePlayer()
+                    if event.type == MOUSEBUTTONUP and event.button == 3:
+                        for case in self.listeCases:
+                            if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
+                                print(" joueur :", case.playerOnCase.name, " type", case.typeOfUniteOnCase, " Nombres :",
+                                      case.NumberuniteOnCase)
+
+                if not self.listeJoueur[0].Attack and not self.listeJoueur[0].Replace:
+                    self.listeJoueur[0].Attack = True
+                    self.changePlayer()
+                    print("\n","Tour du joueur", self.listeJoueur[0].name)
                 pygame.display.flip()
         pygame.quit()
 
     def clicGaucheAttaque(self):
         for case in self.listeCases:
-            if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
+            if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase != \
+                    self.listeJoueur[0]:
+                print("sur la case")
                 self.listeCases.remove(case)
                 case = self.listeJoueur[0].conquier(case)
                 self.listeCases.append(case)
@@ -55,14 +66,17 @@ class Games:
                     self.listeJoueur[0].Replace = True
 
     def cliqueGaucheReplace(self):
-        for case in self.listeCases:
-            if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
-                self.listeCases.remove(case)
-                case = self.listeJoueur[0].replaceArmy()
-                self.listeCases.append(case)
-                if self.listeJoueur[0].toReplace == 0:
-                    self.listeJoueur[0].Attack = True
-                    self.listeJoueur[0].Replace = False
+        if self.listeJoueur[0].toReplace > 0:
+            for case in self.listeCases:
+                if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase == \
+                        self.listeJoueur[0]:
+                    self.listeCases.remove(case)
+                    case = self.listeJoueur[0].replaceArmy(case)
+                    print("Après remplacement :", self.listeJoueur[0].toReplace)
+                    self.listeCases.append(case)
+                    if self.listeJoueur[0].toReplace <= 0:
+                        self.listeJoueur[0].Replace = False
+                    return
 
     def cliqueGaucheBuyArmy(self):
         if 0 < pygame.mouse.get_pos()[1] < 75:
