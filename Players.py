@@ -5,7 +5,6 @@ class Joueur:
     def __init__(self):
         self.name = "Default"
         self.army = None
-        self.toReplace = 0
         self.victoryPoint = 5
         self.Attack = True
         self.Replace = False
@@ -18,7 +17,8 @@ class Joueur:
             howManyToConquier += 1
         print("nécessaire pour conquérir : ", case.NumberuniteOnCase, "Possède :", howManyToConquier, "Armée :",
               self.army.number, "Nouvelle armée :", self.army.number - howManyToConquier)
-        if howManyToConquier < case.NumberuniteOnCase:
+
+        if howManyToConquier < case.NumberuniteOnCase and howManyToConquier > 0:
             self.lastAttack = True
             varDice = diceRandom.randomDice()
             if self.army.number + varDice < case.NumberuniteOnCase:
@@ -27,22 +27,25 @@ class Joueur:
         if howManyToConquier > 0:
             self.army.number -= howManyToConquier
             case.caseAddBeenConquiert(self, howManyToConquier)
+        if self.army.number == 0:
+            self.lastAttack = True
         return case
 
     def stack(self, listeCase):
-        self.toReplace = 0
         for cases in listeCase:
             if cases.typeOfUniteOnCase == self.army.race:
-                listeCase.remove(cases)
-                self.toReplace += cases.NumberuniteOnCase - 1
+                print('nombre sur la case :', cases.NumberuniteOnCase)
+                #listeCase.remove(cases)
+                self.army.number += cases.NumberuniteOnCase - 1
+                print("à remplaceer :", self.army.number)
                 cases.NumberuniteOnCase = 1
-                listeCase.append(cases)
-        print("remplacement dispo :", self.toReplace)
+                #listeCase.append(cases)
+        print("remplacement dispo :", self.army.number)
         return listeCase
 
     def replaceArmy(self, case):
         if case.typeOfUniteOnCase == self.army.race:
             case.NumberuniteOnCase += 1
-            self.toReplace -= 1
-            print("reste à remplacer", self.toReplace, "unité(s)")
+            self.army.number -= 1
+            print("reste à remplacer", self.army.number, "unité(s)")
             return case

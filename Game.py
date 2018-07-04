@@ -1,9 +1,16 @@
 import pygame
 from pygame import *
+from threading import *
 
+"""
+TODO:
+Afficher les éléments sur la droite en threading
+Quand on conquier sur un ennemi : on lui rend tout -1
+"""
 
-class Games:
+class Games(Thread):
     def __init__(self, Initgame, Map):
+        Thread.__init__(self)
         self.listeJoueur = Initgame.getListeJoueur()
         self.map = Map
         self.MouseButtonUp = 1
@@ -22,13 +29,14 @@ class Games:
         self.listeJoueur.append(self.listeJoueur[0])
         self.listeJoueur.remove(self.listeJoueur[0])
 
-    def run(self):
-        while self.partieEnCours:
+    def runGame(self):
+        while self.partieEnCours and self.tour < 8 * len(self.listeJoueur):
             if self.listeJoueur[0].army is None:
                 self.chooseUnite()
             else:
                 self.map.displayMap()
                 self.map.displayUnite()
+
                 for event in pygame.event.get():
                     """On fait la liste de tous les évenements qui peuvent se produirent"""
                     if event.type == QUIT:
@@ -37,20 +45,36 @@ class Games:
                     if event.type == MOUSEBUTTONUP and event.button == self.MouseButtonUp:
                         if self.listeJoueur[0].Attack:  # Tant qu'il peut attaquer
                             self.clicGaucheAttaque()
+                            if self.listeJoueur[0].lastAttack:
+                                self.listeJoueur[0].Attack = False
+                                self.listeJoueur[0].Replace = True
+                                self.listeCases = self.listeJoueur[0].stack(self.listeCases)
+                                print("Il faut replacer")
                         elif self.listeJoueur[0].Replace:
                             self.cliqueGaucheReplace()
                     if event.type == MOUSEBUTTONUP and event.button == 3:
                         for case in self.listeCases:
                             if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
-                                print(" joueur :", case.playerOnCase.name, " type", case.typeOfUniteOnCase, " Nombres :",
-                                      case.NumberuniteOnCase)
-
-                if not self.listeJoueur[0].Attack and not self.listeJoueur[0].Replace:
-                    self.listeJoueur[0].Attack = True
-                    self.changePlayer()
-                    print("\n","Tour du joueur", self.listeJoueur[0].name)
-                pygame.display.flip()
+                                print(" joueur :", case.playerOnCase.name, " type", case.typeOfUniteOnCase,
+                                      " Nombres :", case.NumberuniteOnCase)
+                self.testchangePlayer()
         pygame.quit()
+
+    def testchangePlayer(self):
+        if not self.listeJoueur[0].Attack and not self.listeJoueur[0].Replace:
+            self.listeJoueur[0].Attack = True
+            self.changePlayer()
+            self.tour += 1
+            print("\n", "Tour du joueur", self.listeJoueur[0].name)
+            if self.listeJoueur[0].army is not None:
+                self.listeCases = self.listeJoueur[0].stack(self.listeCases)
+        pygame.display.flip()
+
+    def calculPoint(self):
+        """self.listeJoueur.sort(key=lambda v: v.self)
+        for player in self.listeJoueur:
+
+        print("Le joueur", self.listeJoueur[0].name, "à gagner")"""
 
     def clicGaucheAttaque(self):
         for case in self.listeCases:
@@ -60,21 +84,17 @@ class Games:
                 self.listeCases.remove(case)
                 case = self.listeJoueur[0].conquier(case)
                 self.listeCases.append(case)
-                if self.listeJoueur[0].lastAttack:
-                    self.listeCases = self.listeJoueur[0].stack(self.listeCases)
-                    self.listeJoueur[0].Attack = False
-                    self.listeJoueur[0].Replace = True
 
     def cliqueGaucheReplace(self):
-        if self.listeJoueur[0].toReplace > 0:
+        if self.listeJoueur[0].army.number > 0:
             for case in self.listeCases:
                 if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase == \
                         self.listeJoueur[0]:
                     self.listeCases.remove(case)
                     case = self.listeJoueur[0].replaceArmy(case)
-                    print("Après remplacement :", self.listeJoueur[0].toReplace)
+                    print("Après remplacement :", self.listeJoueur[0].army.number)
                     self.listeCases.append(case)
-                    if self.listeJoueur[0].toReplace <= 0:
+                    if self.listeJoueur[0].army.number <= 0:
                         self.listeJoueur[0].Replace = False
                     return
 
@@ -82,6 +102,7 @@ class Games:
         if 0 < pygame.mouse.get_pos()[1] < 75:
             print(self.listeJoueur[0].name, "vous avez acheter des", self.UniteToBuy[0].race, "!")
             self.listeJoueur[0].army = self.UniteToBuy[0]
+            self.UniteToBuy.remove(self.UniteToBuy[0])
 
         if 100 < pygame.mouse.get_pos()[1] < 175 and self.listeJoueur[0].victoryPoint >= 1:
             print(self.listeJoueur[0].name, "vous avez acheter des", self.UniteToBuy[1].race, "!")

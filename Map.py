@@ -5,7 +5,7 @@ from DataName import *
 
 class Map:
     def __init__(self):
-        self.ecran = pygame.display.set_mode((996, 996))
+        self.ecran = pygame.display.set_mode((1396, 996))
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.battelfield = pygame.image.load("small_world1.jpg").convert()
         self.backGround = self.battelfield

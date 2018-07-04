@@ -7,4 +7,4 @@ InitTheGame.InitJoueur()
 MapOfTheGame = Map()
 
 TheGame = Games(InitTheGame, MapOfTheGame)
-TheGame.run()
+TheGame.runGame()
