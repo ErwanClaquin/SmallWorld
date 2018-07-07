@@ -6,8 +6,11 @@ from decompte import *
 
 InitTheGame = Init()
 InitTheGame.InitJoueur()
+
 MapOfTheGame = Map()
-myDecompte = decompte()
+MapOfTheGame.start()
+
+myDecompte = decompte(MapOfTheGame)
 myDecompte.start()
 
 TheGame = Games(InitTheGame, MapOfTheGame,myDecompte)

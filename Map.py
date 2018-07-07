@@ -2,15 +2,17 @@ import pygame
 from DataName import *
 from threading import Thread, RLock
 
+import time
+from pygame.locals import *
 
-class Map:
+
+class Map(Thread):
     def __init__(self):
+        Thread.__init__(self)
         self.ecran = pygame.display.set_mode((1396, 996))
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.battelfield = pygame.image.load("small_world1.jpg").convert()
         self.backGround = self.battelfield
-
-
 
         # Image of Unites
         self.Amazon = pygame.image.load("Amazon.png").convert()
@@ -31,6 +33,26 @@ class Map:
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.UnitToBuy = []
 
+        self.keepAlive=True
+        self.myAffichageDecompe=""
+        pygame.init()
+        #font.init()
+
+    def run(self):
+        while(self.keepAlive):
+            pygame.display.flip()
+            time.sleep(0.05)
+
+    def afficheDecompte(self,decompte):
+        font1 = pygame.font.Font(None, 30)
+        textImage = font1.render(self.myAffichageDecompe, False, (0, 0, 0))
+        self.ecran.blit(textImage, (1050, 20))
+
+        text = "temps de jeu = "+ str(decompte)
+        self.myAffichageDecompe=text
+        font1 = pygame.font.Font(None,30)
+        textImage = font1.render(text, False, (255,0,0))
+        self.ecran.blit(textImage, (1050,20))
 
 
     def setListeCase(self, listeCase):
