@@ -1,16 +1,15 @@
 import pygame
 from pygame import *
 from threading import *
-
+import decompte
 """
 TODO:
 Afficher les éléments sur la droite en threading
 Quand on conquier sur un ennemi : on lui rend tout -1
 """
 
-class Games(Thread):
-    def __init__(self, Initgame, Map):
-        Thread.__init__(self)
+class Games():
+    def __init__(self, Initgame, Map,myDecompte):
         self.listeJoueur = Initgame.getListeJoueur()
         self.map = Map
         self.MouseButtonUp = 1
@@ -22,12 +21,14 @@ class Games(Thread):
         self.UniteToBuy = Initgame.uniteToBuy
         self.map.setUnitToBuy(self.UniteToBuy)
 
+        self.myDecompte = myDecompte
     """On considère que lorsqu'un joueur perd il est eliminé, ainsi il restera dans la liste et quand son tour viendra son tour passera automatiquement"""
 
     def changePlayer(self):
         self.listeJoueur[0].Attack = True
         self.listeJoueur.append(self.listeJoueur[0])
         self.listeJoueur.remove(self.listeJoueur[0])
+        self.myDecompte.changementDeJoueur()
 
     def runGame(self):
         while self.partieEnCours and self.tour < 8 * len(self.listeJoueur):

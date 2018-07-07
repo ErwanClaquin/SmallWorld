@@ -1,6 +1,6 @@
 import pygame
 from DataName import *
-
+from threading import Thread, RLock
 
 
 class Map:
@@ -9,6 +9,7 @@ class Map:
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.battelfield = pygame.image.load("small_world1.jpg").convert()
         self.backGround = self.battelfield
+
 
 
         # Image of Unites
@@ -29,6 +30,8 @@ class Map:
         self.listeCase = []
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.UnitToBuy = []
+
+
 
     def setListeCase(self, listeCase):
         self.listeCase = listeCase
