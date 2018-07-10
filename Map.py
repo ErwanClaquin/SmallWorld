@@ -5,6 +5,8 @@ from threading import Thread, RLock
 import time
 from pygame.locals import *
 
+verrou = RLock()
+
 
 class Map(Thread):
     def __init__(self):
@@ -12,7 +14,11 @@ class Map(Thread):
         self.ecran = pygame.display.set_mode((1396, 996))
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.battelfield = pygame.image.load("small_world1.jpg").convert()
+        self.border = pygame.image.load("Border.png").convert()
         self.backGround = self.battelfield
+
+        self.currentPlayer = None
+        self.log = ""
 
         # Image of Unites
         self.Amazon = pygame.image.load("Amazon.png").convert()
@@ -33,27 +39,95 @@ class Map(Thread):
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.UnitToBuy = []
 
-        self.keepAlive=True
-        self.myAffichageDecompe=""
+        self.keepAlive = True
+        self.myAffichageDecompe = ""
         pygame.init()
-        #font.init()
+        # font.init()
 
     def run(self):
-        while(self.keepAlive):
-            pygame.display.flip()
+        while (self.keepAlive):
+            if self.currentPlayer != None:
+                if self.currentPlayer.army is None:
+                    self.backGround = self.shop
+                else:
+                    self.backGround = self.battelfield
+                with verrou:
+                    self.displayMap()
+                    self.affichageData()
+                    if self.backGround != self.shop:
+                        self.displayUnite()
+                    else:
+                        self.displayShop()
+                    pygame.display.flip()
             time.sleep(0.05)
 
-    def afficheDecompte(self,decompte):
-        font1 = pygame.font.Font(None, 30)
-        textImage = font1.render(self.myAffichageDecompe, False, (0, 0, 0))
+    def changeLog(self, log):
+        self.log = log
+
+    def refreshData(self, player):
+        self.currentPlayer = player
+
+    def affichageData(self):
+
+        ####Decompte####
+        text = "temps de jeu = " + str(self.myAffichageDecompe)
+        font = pygame.font.Font(None, 30)
+        textImage = font.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage, (1050, 20))
 
-        text = "temps de jeu = "+ str(decompte)
-        self.myAffichageDecompe=text
-        font1 = pygame.font.Font(None,30)
-        textImage = font1.render(text, False, (255,0,0))
-        self.ecran.blit(textImage, (1050,20))
+        ####PlayerName####
 
+        text = "Joueur : " + str(self.currentPlayer.name)
+        font1 = pygame.font.Font(None, 30)
+        textImage1 = font1.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage1, (1050, 40))
+
+        ####PlayerArmyName####
+
+
+        if self.currentPlayer.army is None:
+            text = "Pas d'armée"
+        else:
+            text = "Armée : " + str(self.currentPlayer.army.race)
+        font2 = pygame.font.Font(None, 30)
+        textImage2 = font2.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage2, (1050, 60))
+
+        ####PlayerNumerArmyName####
+
+
+
+        if self.currentPlayer.army is None:
+            text = "Pas d'armée"
+        else:
+            text = "Nombre dans l'Armée : " + str(self.currentPlayer.army.number)
+        font3 = pygame.font.Font(None, 30)
+        textImage3 = font3.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage3, (1050, 80))
+
+        ####PlayerActionToDo####
+
+        text = "Action : " + self.WhichAction()
+        font4 = pygame.font.Font(None, 30)
+        textImage4 = font4.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage4, (1050, 100))
+
+    def WhichAction(self):
+        if self.currentPlayer.Attack is True:
+            return "Attaque"
+        else:
+            return "Remplace"
+
+    def afficheDecompte(self, decompte):
+        font = pygame.font.Font(None, 30)
+        textImage = font.render(self.myAffichageDecompe, False, (0, 0, 0))
+        self.ecran.blit(textImage, (1050, 20))
+
+        text = "temps de jeu = " + str(decompte)
+        self.myAffichageDecompe = text
+        font = pygame.font.Font(None, 30)
+        textImage = font.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage, (1050, 20))
 
     def setListeCase(self, listeCase):
         self.listeCase = listeCase
@@ -62,6 +136,7 @@ class Map(Thread):
         self.UnitToBuy = listUniteToBuy
 
     def displayMap(self):
+        self.ecran.blit(self.border, (900, 0))
         self.ecran.blit(self.backGround, (0, 0))
 
     def displayShop(self):
@@ -181,7 +256,6 @@ class Map(Thread):
         elif self.UnitToBuy[3].race == nameZombie:
             self.ecran.blit(self.Zombie, (0, 300))
 
-
     def displayUnite(self):
         for case in self.listeCase:
             if case.typeOfUniteOnCase == nameAmazon:
@@ -212,4 +286,3 @@ class Map(Thread):
                 self.ecran.blit(self.Wizzard, (case.coord[0], case.coord[1]))
             elif case.typeOfUniteOnCase == nameZombie:
                 self.ecran.blit(self.Zombie, (case.coord[0], case.coord[1]))
-

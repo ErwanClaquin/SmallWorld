@@ -32,11 +32,13 @@ class Games():
 
     def runGame(self):
         while self.partieEnCours and self.tour < 8 * len(self.listeJoueur):
+            self.map.refreshData(self.listeJoueur[0])
+
             if self.listeJoueur[0].army is None:
                 self.chooseUnite()
             else:
-                self.map.displayMap()
-                self.map.displayUnite()
+                #self.map.displayMap()
+                #self.map.displayUnite()
 
                 for event in pygame.event.get():
                     """On fait la liste de tous les évenements qui peuvent se produirent"""
@@ -124,17 +126,17 @@ class Games():
             self.UniteToBuy.remove(self.UniteToBuy[3])
 
     def chooseUnite(self):
-        self.map.backGround = self.map.shop
+        #self.map.backGround = self.map.shop
         while self.listeJoueur[0].army is None and self.partieEnCours:
-            self.map.displayMap()
-            self.map.displayShop()
+            #self.map.displayMap()
+            #self.map.displayShop()
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.partieEnCours = False
                 if event.type == MOUSEBUTTONUP and event.button == self.MouseButtonUp:
                     self.cliqueGaucheBuyArmy()
-            pygame.display.flip()
-        self.map.backGround = self.map.battelfield
+            #pygame.display.flip()
+        #self.map.backGround = self.map.battelfield
 
     def addTour(self):
         self.tour += 1
