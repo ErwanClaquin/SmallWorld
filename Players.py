@@ -7,45 +7,64 @@ class Joueur:
         self.army = None
         self.victoryPoint = 5
         self.Attack = True
-        self.Replace = False
         self.lastAttack = False
         self.listCaseTemp = []
 
-    def conquier(self, case):
-        howManyToConquier = 0
-        while case.NumberuniteOnCase > howManyToConquier < self.army.number:
-            howManyToConquier += 1
-        print("nécessaire pour conquérir : ", case.NumberuniteOnCase, "Possède :", howManyToConquier, "Armée :",
-              self.army.number, "Nouvelle armée :", self.army.number - howManyToConquier)
+    def conquier(self, case, listeCase):
+        canConquierAdjacent = True
+        canConquierMer = True
+        canConquier = True
 
-        if howManyToConquier < case.NumberuniteOnCase and howManyToConquier > 0:
-            self.lastAttack = True
-            varDice = diceRandom.randomDice()
-            if self.army.number + varDice < case.NumberuniteOnCase:
-                print("Fail, pas assez d'unité")
-                return case
-        if howManyToConquier > 0:
-            self.army.number -= howManyToConquier
-            case.caseAddBeenConquiert(self, howManyToConquier)
-        if self.army.number == 0:
-            self.lastAttack = True
-        return case
+        for casees in listeCase:
+            if casees.typeOfUniteOnCase == self.army.race:
+                canConquierMer = False
+                #print("Il y'a des unités sur le plateau")
+
+        if canConquierMer is False:  # Il y'a des unités sur le plateau
+            canConquierAdjacent = False
+            for cases in case.adjacent:
+                if cases.playerOnCase == self:
+                    canConquierAdjacent = True
+                    #print("On est adjacent")
+
+        if canConquierMer is True:
+            canConquier = case.sea
+
+        if canConquierAdjacent and canConquier:
+            howManyToConquier = 0
+            while case.NumberuniteOnCase > howManyToConquier < self.army.number:
+                howManyToConquier += 1
+
+            if 0 < howManyToConquier < case.NumberuniteOnCase:
+                print("0 < howManyToConquier < case.NumberuniteOnCase:")
+                self.lastAttack = True
+                varDice = diceRandom.randomDice()
+                if self.army.number + varDice < case.NumberuniteOnCase:
+                    print("Fail, pas assez d'unité")
+                    return case, "Fail, pas assez d'unité"
+            if howManyToConquier > 0:
+                self.army.number -= howManyToConquier
+                if case.playerOnCase is not None:
+                    case.playerOnCase.army.number = case.NumberuniteOnCase - 1
+                case.caseAddBeenConquiert(self, howManyToConquier)
+            if self.army.number == 0:
+                self.lastAttack = True
+                print("self.army.number == 0")
+            return case, False
+        if not canConquier:
+            return case, "Ce n'est pas une case mer !"
+        elif not canConquierAdjacent:
+            return case, "Ce n'est pas une case adjacente !"
 
     def stack(self, listeCase):
         for cases in listeCase:
             if cases.typeOfUniteOnCase == self.army.race:
-                print('nombre sur la case :', cases.NumberuniteOnCase)
-                #listeCase.remove(cases)
                 self.army.number += cases.NumberuniteOnCase - 1
-                print("à remplaceer :", self.army.number)
                 cases.NumberuniteOnCase = 1
-                #listeCase.append(cases)
-        print("remplacement dispo :", self.army.number)
         return listeCase
 
     def replaceArmy(self, case):
         if case.typeOfUniteOnCase == self.army.race:
             case.NumberuniteOnCase += 1
             self.army.number -= 1
-            print("reste à remplacer", self.army.number, "unité(s)")
             return case

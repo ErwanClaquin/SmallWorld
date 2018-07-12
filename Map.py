@@ -11,10 +11,11 @@ verrou = RLock()
 class Map(Thread):
     def __init__(self):
         Thread.__init__(self)
-        self.ecran = pygame.display.set_mode((1396, 996))
+        self.ecran = pygame.display.set_mode((1396, 1096))
         self.shop = pygame.image.load("Shop.jpg").convert()
         self.battelfield = pygame.image.load("small_world1.jpg").convert()
         self.border = pygame.image.load("Border.png").convert()
+        self.under = pygame.image.load("under.jpg").convert()
         self.backGround = self.battelfield
 
         self.currentPlayer = None
@@ -59,7 +60,7 @@ class Map(Thread):
                     else:
                         self.displayShop()
                     pygame.display.flip()
-            time.sleep(0.05)
+            time.sleep(0.5)  # Todo : Voir comment gérer les clignotemenst : plus c'est petit plus ça clignote
 
     def changeLog(self, log):
         self.log = log
@@ -75,6 +76,7 @@ class Map(Thread):
         textImage = font.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage, (1050, 20))
 
+
         ####PlayerName####
 
         text = "Joueur : " + str(self.currentPlayer.name)
@@ -82,8 +84,8 @@ class Map(Thread):
         textImage1 = font1.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage1, (1050, 40))
 
-        ####PlayerArmyName####
 
+        ####PlayerArmyName####
 
         if self.currentPlayer.army is None:
             text = "Pas d'armée"
@@ -93,9 +95,8 @@ class Map(Thread):
         textImage2 = font2.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage2, (1050, 60))
 
+
         ####PlayerNumerArmyName####
-
-
 
         if self.currentPlayer.army is None:
             text = "Pas d'armée"
@@ -105,6 +106,7 @@ class Map(Thread):
         textImage3 = font3.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage3, (1050, 80))
 
+
         ####PlayerActionToDo####
 
         text = "Action : " + self.WhichAction()
@@ -112,22 +114,19 @@ class Map(Thread):
         textImage4 = font4.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage4, (1050, 100))
 
+
+        ####Log####
+
+        text = self.log
+        font5 = pygame.font.Font(None, 50)
+        textImage5 = font5.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage5, (10, 1030))
+
     def WhichAction(self):
         if self.currentPlayer.Attack is True:
             return "Attaque"
         else:
             return "Remplace"
-
-    def afficheDecompte(self, decompte):
-        font = pygame.font.Font(None, 30)
-        textImage = font.render(self.myAffichageDecompe, False, (0, 0, 0))
-        self.ecran.blit(textImage, (1050, 20))
-
-        text = "temps de jeu = " + str(decompte)
-        self.myAffichageDecompe = text
-        font = pygame.font.Font(None, 30)
-        textImage = font.render(text, False, (255, 0, 0))
-        self.ecran.blit(textImage, (1050, 20))
 
     def setListeCase(self, listeCase):
         self.listeCase = listeCase
@@ -137,6 +136,7 @@ class Map(Thread):
 
     def displayMap(self):
         self.ecran.blit(self.border, (900, 0))
+        self.ecran.blit(self.under, (0, 547))
         self.ecran.blit(self.backGround, (0, 0))
 
     def displayShop(self):

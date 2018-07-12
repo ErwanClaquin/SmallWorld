@@ -12,14 +12,12 @@ class decompte (Thread):
     def run(self):
         while(self.keepAlive):
             self.decomptejoueur = self.decomptejoueur +1
-            #print (self.decomptejoueur)
             self.myMapOfTheGame.myAffichageDecompe = self.decomptejoueur
             time.sleep(1)
 
     def changementDeJoueur(self):
         self.decomptejoueur = 0
         self.myMapOfTheGame.myAffichageDecompe = self.decomptejoueur
-        #print(self.decomptejoueur)
 
     def stopDecompte(self):
         self.keepAlive=False

@@ -2,7 +2,7 @@ from DataName import *
 
 
 class Case:
-    def __init__(self, adjacent, freePeople, type, moutain, playerOnCase, typeOfUniteOnCase, x, y):
+    def __init__(self, adjacent, freePeople, type, moutain, playerOnCase, typeOfUniteOnCase, x, y, sea):
         self.adjacent = adjacent
         self.freePepole = freePeople
         self.type = type
@@ -11,6 +11,7 @@ class Case:
         self.NumberuniteOnCase = 2 + int(self.freePepole)
         self.coord = [(x, y), (x + 75, y + 75)]
         self.typeOfUniteOnCase = typeOfUniteOnCase
+        self.sea = sea
 
     def onCase(self, x, y):
         return (self.coord[0][0] < x < self.coord[1][0]) and (self.coord[0][1] < y < self.coord[1][1])
