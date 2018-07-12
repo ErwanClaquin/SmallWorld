@@ -57,16 +57,25 @@ class Map(Thread):
                     self.affichageData()
                     if self.backGround != self.shop:
                         self.displayUnite()
+                        self.affichageNumberOncase()
                     else:
                         self.displayShop()
                     pygame.display.flip()
-            time.sleep(0.5)  # Todo : Voir comment gérer les clignotemenst : plus c'est petit plus ça clignote
+            time.sleep(0.25)  # Todo : Voir comment gérer les clignotemenst : plus c'est petit plus ça clignote
 
     def changeLog(self, log):
         self.log = log
 
     def refreshData(self, player):
         self.currentPlayer = player
+
+    def affichageNumberOncase(self):
+        for case in self.listeCase:
+            if case.typeOfUniteOnCase is not None:
+                text = str(case.NumberuniteOnCase)
+                font = pygame.font.Font(None, 30)
+                textImage = font.render(text, False, (255, 0, 0))
+                self.ecran.blit(textImage, case.coord[0])
 
     def affichageData(self):
 
