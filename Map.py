@@ -16,6 +16,7 @@ class Map(Thread):
         self.battelfield = pygame.image.load("small_world1.jpg").convert()
         self.border = pygame.image.load("Border.png").convert()
         self.under = pygame.image.load("under.jpg").convert()
+        self.setToFall = pygame.image.load("SetFall.png").convert_alpha()
         self.backGround = self.battelfield
 
         self.currentPlayer = None
@@ -85,14 +86,12 @@ class Map(Thread):
         textImage = font.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage, (1050, 20))
 
-
         ####PlayerName####
 
         text = "Joueur : " + str(self.currentPlayer.name)
         font1 = pygame.font.Font(None, 30)
         textImage1 = font1.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage1, (1050, 40))
-
 
         ####PlayerArmyName####
 
@@ -104,7 +103,6 @@ class Map(Thread):
         textImage2 = font2.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage2, (1050, 60))
 
-
         ####PlayerNumerArmyName####
 
         if self.currentPlayer.army is None:
@@ -115,14 +113,30 @@ class Map(Thread):
         textImage3 = font3.render(text, False, (255, 0, 0))
         self.ecran.blit(textImage3, (1050, 80))
 
+        ####PlayerArmyFall####
+
+        if self.currentPlayer.armyFall is None:
+            text = "Pas d'armée en déclin"
+        else:
+            text = "Armée en déclin: " + str(self.currentPlayer.armyFall.race)
+        font4 = pygame.font.Font(None, 30)
+        textImage4 = font4.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage4, (1050, 100))
 
         ####PlayerActionToDo####
 
         text = "Action : " + self.WhichAction()
         font4 = pygame.font.Font(None, 30)
         textImage4 = font4.render(text, False, (255, 0, 0))
-        self.ecran.blit(textImage4, (1050, 100))
+        self.ecran.blit(textImage4, (1050, 120))
 
+
+        ####PlayerVictoryPoint####
+
+        text = "Point de victoire : " + str(self.currentPlayer.victoryPoint)
+        font4 = pygame.font.Font(None, 30)
+        textImage4 = font4.render(text, False, (255, 0, 0))
+        self.ecran.blit(textImage4, (1050, 140))
 
         ####Log####
 
@@ -145,6 +159,7 @@ class Map(Thread):
 
     def displayMap(self):
         self.ecran.blit(self.border, (900, 0))
+        self.ecran.blit(self.setToFall, (1030, 300))
         self.ecran.blit(self.under, (0, 547))
         self.ecran.blit(self.backGround, (0, 0))
 

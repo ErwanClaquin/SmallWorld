@@ -51,7 +51,6 @@ class Games():
                         self.myDecompte.keepAlive = False
 
                     if event.type == MOUSEBUTTONUP and event.button == self.MouseButtonUp:
-                        print("self.listeJoueur[0].Attack :", self.listeJoueur[0].Attack)
                         if self.listeJoueur[0].Attack:  # Tant qu'il peut attaquer
                             self.clicGaucheAttaque()
 
@@ -68,9 +67,12 @@ class Games():
         pygame.quit()
 
     def testchangePlayer(self):
-        if not self.listeJoueur[0].Attack and self.listeJoueur[0].army.number == 0:
+        if (not self.listeJoueur[0].Attack and self.listeJoueur[0].army.number == 0) or self.listeJoueur[0].passTurn:
             self.listeJoueur[0].Attack = True
             self.listeJoueur[0].lastAttack = False
+            self.listeJoueur[0].canFall = True
+            self.listeJoueur[0].passTurn = False
+            self.listeJoueur[0].countPoint(self.listeCases)
             self.changePlayer()
             self.tour += 1
             print("\n", "Tour du joueur", self.listeJoueur[0].name)
@@ -83,25 +85,29 @@ class Games():
     def calculPoint(self):
         """self.listeJoueur.sort(key=lambda v: v.self)
         for player in self.listeJoueur:
-
         print("Le joueur", self.listeJoueur[0].name, "à gagner")"""
 
     def clicGaucheAttaque(self):
-        for case in self.listeCases:
-            if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase != \
-                    self.listeJoueur[0]:
-                self.listeCases.remove(case)
-                data = self.listeJoueur[0].conquier(case, self.listeCases)
-                case, log = data[0], data[1]
-                del data
-                if log is not False:
-                    self.map.changeLog(log)
-                self.listeCases.append(case)
-        if self.listeJoueur[0].lastAttack:
-            self.listeJoueur[0].Attack = False
-            self.listeCases = self.listeJoueur[0].stack(self.listeCases)
-            print("Il faut replacer")
-            self.map.changeLog("Il faut replacer")
+        if 1030 < pygame.mouse.get_pos()[0] < 1410 and 300 < pygame.mouse.get_pos()[1] < 527 and self.listeJoueur[0].canFall:
+            self.listeCases = self.listeJoueur[0].setFall(self.listeCases)
+            self.listeJoueur[0].passTurn = True
+
+        else:
+            for case in self.listeCases:
+                if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase != \
+                        self.listeJoueur[0]:
+                    self.listeCases.remove(case)
+                    data = self.listeJoueur[0].conquier(case, self.listeCases)
+                    case, log = data[0], data[1]
+                    del data
+                    if log is not False:
+                        self.map.changeLog(log)
+                    self.listeCases.append(case)
+            if self.listeJoueur[0].lastAttack:
+                self.listeJoueur[0].Attack = False
+                self.listeCases = self.listeJoueur[0].stack(self.listeCases)
+                print("Il faut replacer")
+                self.map.changeLog("Il faut replacer")
 
     def cliqueGaucheReplace(self):
         if self.listeJoueur[0].army.number > 0:
