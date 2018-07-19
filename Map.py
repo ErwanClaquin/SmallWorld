@@ -5,7 +5,7 @@ from threading import Thread, RLock
 import time
 from pygame.locals import *
 
-verrou = RLock()
+
 
 
 class Map(Thread):
@@ -44,6 +44,7 @@ class Map(Thread):
         self.keepAlive = True
         self.myAffichageDecompe = ""
         pygame.init()
+        self.start()
         # font.init()
 
     def run(self):
@@ -53,16 +54,16 @@ class Map(Thread):
                     self.backGround = self.shop
                 else:
                     self.backGround = self.battelfield
-                with verrou:
-                    self.displayMap()
-                    self.affichageData()
-                    if self.backGround != self.shop:
-                        self.displayUnite()
-                        self.affichageNumberOncase()
-                    else:
-                        self.displayShop()
-                    pygame.display.flip()
-            time.sleep(0.25)  # Todo : Voir comment gérer les clignotemenst : plus c'est petit plus ça clignote
+
+                self.displayMap()
+                self.affichageData()
+                if self.backGround != self.shop:
+                    self.displayUnite()
+                    self.affichageNumberOncase()
+                else:
+                    self.displayShop()
+                pygame.display.flip()
+            time.sleep(0.2)  # Todo : Voir comment gérer les clignotemenst : plus c'est petit plus ça clignote
 
     def changeLog(self, log):
         self.log = log

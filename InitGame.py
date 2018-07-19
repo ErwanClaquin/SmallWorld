@@ -27,6 +27,7 @@ class Init:
         self.createsCases()
         self.uniteToBuy = []
         self.createUnitToBuy()
+        self.InitJoueur()
 
     def InitJoueur(self):
         # NumberPlayer = input("Combien de joueur êtes vous ? : ")
@@ -44,7 +45,7 @@ class Init:
     def CreatePlayer(self):
         joueur = Joueur()
         print("Entrez un nom : ")
-        joueur.name = 'e'
+        joueur.name = str(len(self.listeJoueur))
         self.listeJoueur.append(joueur)
 
     def CheckNbrJoueur(self, number):

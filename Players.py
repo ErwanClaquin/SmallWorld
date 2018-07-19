@@ -23,6 +23,7 @@ class Joueur:
             if casees.typeOfUniteOnCase == self.army.race:
                 canConquierMer = False
                 # print("Il y'a des unités sur le plateau")
+        print("canConquierMer =", canConquierMer )
 
         if canConquierMer is False:  # Il y'a des unités sur le plateau
             canConquierAdjacent = False
@@ -30,14 +31,17 @@ class Joueur:
                 if cases.playerOnCase == self:
                     canConquierAdjacent = True
                     # print("On est adjacent")
-
+        print("CANCONQUIERADJACENT =", canConquierAdjacent )
         if canConquierMer is True:
             canConquier = case.sea
+        print("canConquier =", canConquier)
 
         if canConquierAdjacent and canConquier:
             howManyToConquier = 0
             while case.NumberuniteOnCase > howManyToConquier < self.army.number:
                 howManyToConquier += 1
+            print("howManyToConquier = " + str(howManyToConquier))
+            print ("case.NumberuniteOnCase= " + str(case.NumberuniteOnCase))
 
             if 0 < howManyToConquier < case.NumberuniteOnCase:
                 self.lastAttack = True
@@ -73,8 +77,16 @@ class Joueur:
 
     def setFall(self, listeCase):
         for case in listeCase:
-            if case.typeOfUniteOnCase == self.army:
+            if case.typeOfUniteOnCase == self.army.race:
                 case.NumberuniteOnCase = 1
+
+        if self.armyFall is not None:
+            for case in listeCase:
+                if case.typeOfUniteOnCase == self.armyFall.race:
+                    case.typeOfUniteOnCase = None
+                    case.NumberuniteOnCase = 2
+                    case.playerOnCase = None
+
         self.armyFall = self.army
         self.army = None
         return listeCase

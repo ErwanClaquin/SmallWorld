@@ -96,13 +96,13 @@ class Games():
             for case in self.listeCases:
                 if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase != \
                         self.listeJoueur[0]:
-                    self.listeCases.remove(case)
+                    #self.listeCases.remove(case)
                     data = self.listeJoueur[0].conquier(case, self.listeCases)
                     case, log = data[0], data[1]
                     del data
                     if log is not False:
                         self.map.changeLog(log)
-                    self.listeCases.append(case)
+                    #self.listeCases.append(case)
             if self.listeJoueur[0].lastAttack:
                 self.listeJoueur[0].Attack = False
                 self.listeCases = self.listeJoueur[0].stack(self.listeCases)
@@ -114,9 +114,9 @@ class Games():
             for case in self.listeCases:
                 if case.onCase(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]) and case.playerOnCase == \
                         self.listeJoueur[0]:
-                    self.listeCases.remove(case)
+                    #self.listeCases.remove(case)
                     case = self.listeJoueur[0].replaceArmy(case)
-                    self.listeCases.append(case)
+                    #self.listeCases.append(case)
                     return
 
     def cliqueGaucheBuyArmy(self):

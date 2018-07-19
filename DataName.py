@@ -1,3 +1,4 @@
+from threading import Thread, RLock
 #Cases
 caseMagic = "Magic"
 caseNormal = "Normal"
@@ -19,3 +20,5 @@ nameTriton = "Triton"
 nameTroll = "Troll"
 nameWizzard = "Wizzard"
 nameZombie = "Zombie"
+
+

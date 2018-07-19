@@ -1,6 +1,7 @@
 from threading import Thread, RLock
 import time
 
+
 class decompte (Thread):
 
     def __init__(self,MapOfTheGame):
@@ -8,6 +9,7 @@ class decompte (Thread):
         self.decomptejoueur=0
         self.keepAlive = True
         self.myMapOfTheGame=MapOfTheGame
+        self.start()
 
     def run(self):
         while(self.keepAlive):
